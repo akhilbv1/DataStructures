@@ -1,0 +1,19 @@
+i/p : 0,1,-1,0,1,-1,0
+order : -1,1,0
+answer: -1,-1,1,1,0,0
+O(1) space
+O(n) time
+
+val answerArray
+or.forEach{ i,index ->
+   ip.forEach{ k,l ->
+   if(i==k){
+   answerArray.add(k)
+   }
+   }
+}
+if(answerArray.size!=ipArray){
+add distinct items.
+}
+
+
