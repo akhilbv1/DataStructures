@@ -3,36 +3,43 @@ import kotlin.math.min
 
 fun main() {
     // val containerArr = intArrayOf(6, 9, 3, 4, 5, 8)
-    val containerArr = intArrayOf(1,3, 2,5,25,24,5)
-    println(getMaxContainer(containerArr))
-    print(getMaxContainerOp(containerArr))
+    //val containerArr = intArrayOf(1,3, 2,5,25,24,5)
+     val containerArr = intArrayOf(1, 8, 6, 2, 5, 4, 8, 3, 7)
+    //val containerArr = intArrayOf(1, 1)
+    println(maxArea(containerArr))
+    println(maxAreaFast(containerArr))
 }
 
-fun getMaxContainer(height: IntArray): Int {
-    if (height.size < 2) return 0
-    var currentMax = 0
-    height.forEachIndexed { indexi, i ->
-        height.forEachIndexed { indexj, j ->
-            val container = min(i, j) * (indexj - indexi)
-            if (container > currentMax)
-                currentMax = container
+private fun maxAreaFast(height: IntArray): Int {
+    var maxContainerArea = 0
+    var p1 = 0
+    var p2 = height.lastIndex
+    while (p1 < p2) {
+        val area = min(height[p1], height[p2]) * (p2 - p1)
+        if(area>maxContainerArea)
+            maxContainerArea = area
+        if(height[p1]<height[p2])
+            p1++
+        else p2--
+    }
+    return maxContainerArea
+}
+
+
+private fun maxArea(height: IntArray): Int {
+    var maxContainerArea = 0
+    height.forEachIndexed { index, i ->
+        if (index != height.lastIndex) {
+            var maxArea = 0
+            for (p2 in index + 1..height.lastIndex) {
+                val area = min(height[index], height[p2]) * (p2 - index)
+                if (area > maxArea)
+                    maxArea = area
+            }
+            if (maxArea > maxContainerArea)
+                maxContainerArea = maxArea
+
         }
     }
-    return currentMax
-}
-
-fun getMaxContainerOp(height: IntArray): Int {
-    if (height.size < 2) return 0
-    var currentMax = 0
-    var indP1 = 0
-    var indP2 = height.lastIndex
-    while (indP1 != indP2) {
-        val p1 = height[indP1]
-        val p2 = height[indP2]
-        val max = min(p1, p2) * (indP2 - indP1)
-        if(max>currentMax)
-            currentMax = max
-        if(p1<p2 || p1==p2) indP1++ else indP2--
-    }
-    return currentMax
+    return maxContainerArea
 }
