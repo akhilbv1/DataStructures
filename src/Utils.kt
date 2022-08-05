@@ -15,6 +15,18 @@ fun printIntArray(ip: IntArray?) {
     } ?: print(null)
 }
 
+fun getLinkedList(intArray: IntArray): ListNode? {
+    if(intArray.isEmpty()) return null
+    val head = ListNode(intArray[0])
+    var current = head
+    for (index in 1..intArray.lastIndex){
+        val newNode = ListNode(intArray[index])
+        current.next = newNode
+        current = newNode
+    }
+    return head
+}
+
 fun printLinkedList(head: ListNode?) {
     var currentNode = head
     while (currentNode?.`val` != null) {
