@@ -1,3 +1,5 @@
+import com.sun.source.tree.Tree
+
 fun printIntArray(ip: IntArray?) {
     ip?.let {
         if (it.isEmpty()) print("[]")
@@ -16,10 +18,10 @@ fun printIntArray(ip: IntArray?) {
 }
 
 fun getLinkedList(intArray: IntArray): ListNode? {
-    if(intArray.isEmpty()) return null
+    if (intArray.isEmpty()) return null
     val head = ListNode(intArray[0])
     var current = head
-    for (index in 1..intArray.lastIndex){
+    for (index in 1..intArray.lastIndex) {
         val newNode = ListNode(intArray[index])
         current.next = newNode
         current = newNode
@@ -36,5 +38,23 @@ fun printLinkedList(head: ListNode?) {
             print("${currentNode.`val`}->")
         }
         currentNode = currentNode?.next
+    }
+}
+
+fun printTree(root: TreeNode?) {
+    var current: TreeNode? = root
+    val treeList: ArrayList<Int?> = arrayListOf()
+    val queue = arrayListOf<TreeNode?>()
+    queue.add(current)
+    while (queue.size > 0) {
+        current = queue.removeAt(0)
+        print("${current?.`val`} ")
+        treeList.add(current?.`val`)
+        current?.left?.let {
+            queue.add(it)
+        }
+        current?.right?.let {
+            queue.add(it)
+        }
     }
 }
